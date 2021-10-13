@@ -12,12 +12,16 @@ Created by Topgyal Gurung on DEC 1, 2016.
 Copyright © 2016 Topgyal Gurung. All rights reserved
 
 #### TODO 
-- JDBC connection 
-    - register driver
+
+- [x] JDBC connection
+	- register driver
     - create connection
     - create statement
     - execute queries
     - close connection
+- [ ] Connect frontend GUI with database
+- [ ] Complete Swing GUI
+- [ ] Create database model, create tables 
 
 #### Example:
 ```
@@ -26,7 +30,7 @@ Copyright © 2016 Topgyal Gurung. All rights reserved
 
 	Class.forName=("com.mysql.cj,jdbc.Driver"); 
 	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/myDatabase","root","password");
-	Statement stmt=con.createStatement() #object of statement responsible to execute queries wiht db
+	Statement stmt=con.createStatement() //object of statement responsible to execute queries wiht db
 	ResultSet rs=stmt.executeQuery("SELECT a,b,c, FROM Table1");
 	while(rs.next()){
 		int x=rs.getInt("a");
