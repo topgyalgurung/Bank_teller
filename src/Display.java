@@ -25,7 +25,10 @@ import java.awt.event.*; //awt event classes and listener interfaces
 import javax.swing.*; //swing components and containers
 import javax.swing.border.Border;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Display extends JFrame implements ActionListener {
 
@@ -208,20 +211,31 @@ public class Display extends JFrame implements ActionListener {
 		String user="root";
 		String password=""; //add password 
 		String query="SELECT name FROM customer WHERE id=1";
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver"); //com.mysql.jdbc.Driver is deprecated. use com.mysql.cj.jdbc.Driver
+			Connection con=DriverManager.getConnection(url, user, password);
+			Statement st=con.createStatement();
+			System.out.println("Created DB Connection...");
 
-		Class.forName("com.mysql.cj.jdbc.Driver"); //com.mysql.jdbc.Driver is deprecated. use com.mysql.cj.jdbc.Driver
-		Connection con=DriverManager.getConnection(url, user, password);
-		Statement st=con.createStatement();
-		ResultSet rs=st.executeQuery(query);
-		
-		//will take pointer to next record
-		rs.next();  //if not included error: before start of result set java sqlexception
+			ResultSet rs=st.executeQuery(query);
+			
+			//will take pointer to next record
+			rs.next();  //if not included error: before start of result set java sqlexception
 
-		String name=rs.getString("name");
-		System.out.println(name);
+			String name=rs.getString("name");
+			System.out.println(name);
 
-		st.close();
-		con.close();
+			st.close();
+			con.close();
+		} catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		}
 	}
 
 }
